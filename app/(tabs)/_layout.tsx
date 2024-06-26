@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router'
+import { Tabs, router } from 'expo-router'
 import React, { useState } from 'react'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 import { Colors } from '@/constants/Colors'
@@ -21,12 +21,16 @@ export default function TabLayout() {
         }
     }
 
+    const showCurrentRide = () => {
+        router.replace('/ride/currentRide')
+    }
+
     if (loggedIn) {
         return (
             <>
                 {hasRide && (
-                    <Pressable style={{ alignSelf: 'stretch' }} onPress={() => setHasRide(false)}>
-                        <View style={{ height: 32, backgroundColor: 'limegreen' }} />
+                    <Pressable style={{ alignSelf: 'stretch' }} onPress={showCurrentRide}>
+                        <View style={{ height: 64, backgroundColor: 'limegreen' }} />
                     </Pressable>
                 )}
                 <Tabs
@@ -37,7 +41,7 @@ export default function TabLayout() {
                     <Tabs.Screen
                         name='calendar'
                         options={{
-                            title: '',
+                            title: 'Calendar',
                             tabBarIcon: ({ color }) => (
                                 <TabBarIcon name='calendar-outline' color={color} />
                             ),
@@ -46,8 +50,8 @@ export default function TabLayout() {
                     <Tabs.Screen
                         name='index'
                         options={{
-                            title: '',
-                            tabBarIcon: ({ color, focused }) => (
+                            title: 'Home',
+                            tabBarIcon: ({ color }) => (
                                 <TabBarIcon name='home-outline' color={color} />
                             ),
                         }}
@@ -55,7 +59,7 @@ export default function TabLayout() {
                     <Tabs.Screen
                         name='settings'
                         options={{
-                            title: '',
+                            title: 'Settings',
                             tabBarIcon: ({ color }) => (
                                 <TabBarIcon name='settings-outline' color={color} />
                             ),
@@ -76,7 +80,7 @@ export default function TabLayout() {
                 </View>
                 <View style={styles.students}>
                     <Text style={styles.helperText}>Students</Text>
-                    <Button title='Log In' onPress={studentLogin} />
+                    <Button title='Sign In With Google' onPress={studentLogin} />
                 </View>
                 <View style={styles.nonStudents}>
                     <Text style={styles.helperText}>Non-Students</Text>
